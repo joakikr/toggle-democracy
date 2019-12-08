@@ -1,0 +1,66 @@
+{
+  "name": "toggle-democracy",
+  "version": "1.0.0",
+  "description": "React hook for converting a list of options to a democracy of toggle pairs.",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "lib",
+    "es",
+    "src"
+  ],
+  "scripts": {
+    "test": "cross-env BABEL_ENV=commonjs mocha --require @babel/register --reporter spec test/*.js",
+    "test:watch": "cross-env BABEL_ENV=commonjs mocha --watch --require @babel/register --reporter spec test/*.js",
+    "clean": "rimraf lib es",
+    "prepare": "npm run clean && npm run lint && npm run test && npm run build",
+    "lint": "eslint --fix --ext js,jsx ./src",
+    "build": "npm run build:commonjs && npm run build:es",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --extensions '.js,.jsx' --out-dir lib",
+    "build:commonjs:watch": "npm run build:commonjs -- --watch",
+    "build:es": "cross-env BABEL_ENV=es babel src --extensions '.js,.jsx' --out-dir es",
+    "build:es:watch": "npm run build:es -- --watch"
+  },
+  "author": "joakikr",
+  "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js}": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "peerDependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "dependencies": {
+    "uniqid": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "@babel/register": "^7.7.4",
+    "babel-eslint": "^10.0.3",
+    "chai": "^4.2.0",
+    "cross-env": "^6.0.3",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "eslint": "^6.7.2",
+    "eslint-plugin-react": "^7.17.0",
+    "husky": "^3.1.0",
+    "jsdom": "15.2.1",
+    "jsdom-global": "3.0.2",
+    "lint-staged": "^9.5.0",
+    "mocha": "^6.2.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "rimraf": "^3.0.0"
+  }
+}

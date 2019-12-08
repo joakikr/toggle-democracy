@@ -1,0 +1,37 @@
+{
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "ie": "11"
+                }
+            }
+        ],
+        "@babel/react"
+    ],
+    "env": {
+        "commonjs": {
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "modules": "commonjs"
+                    }
+                ],
+                "@babel/react"
+            ]
+        },
+        "es": {
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "modules": false
+                    }
+                ],
+                "@babel/react"
+            ]
+        }
+    }
+}
