@@ -32,9 +32,9 @@ describe('toggle democracy', () => {
         const wrapper = mount(<HookWrapper options={options} />);
         const [state, api] = wrapper.find('span').props().output;
 
-        // Update first toggle to have 'Bar' selected
+        // Update first pair to have 'Bar' selected
         const keys = Object.keys(state.pairs);
-        api.setToggle(keys[0], 'Bar')
+        api.updatePair(keys[0], 'Bar')
 
         // Hack to trigger re-render
         wrapper.setProps();

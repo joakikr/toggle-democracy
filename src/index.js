@@ -46,7 +46,7 @@ const useToggleDemocracy = (options) => {
         setLeader(selected)
     }, [pairs]);
 
-    const setToggle = (id, selected) => {
+    const updatePair = (id, selected) => {
         const copiedPairs = JSON.parse(JSON.stringify(pairs))
         const pair = copiedPairs[id];
 
@@ -69,9 +69,9 @@ const useToggleDemocracy = (options) => {
 
     const api = useMemo(
         () => ({
-            setToggle,
+            updatePair,
         }),
-        [setToggle]
+        [updatePair]
     );
 
     return [state, api];
