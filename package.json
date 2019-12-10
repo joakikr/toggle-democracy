@@ -3,7 +3,7 @@
   "version": "2.0.1",
   "description": "React hook for converting a list of options to a democracy through toggle pairs.",
   "repository": "github:joakikr/toggle-democracy",
-  "homepage": "https://github.com/joakikr/toggle-democracy",
+  "homepage": "https://joakikr.github.io/toggle-democracy/",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -21,7 +21,10 @@
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --extensions '.js,.jsx' --out-dir lib",
     "build:commonjs:watch": "npm run build:commonjs -- --watch",
     "build:es": "cross-env BABEL_ENV=es babel src --extensions '.js,.jsx' --out-dir es",
-    "build:es:watch": "npm run build:es -- --watch"
+    "build:es:watch": "npm run build:es -- --watch",
+    "build:pages": "cd pages && npm install && npm run build",
+    "predeploy": "npm run build:pages",
+    "deploy": "gh-pages -d pages/dist"
   },
   "author": "joakikr",
   "license": "MIT",
@@ -56,6 +59,7 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "eslint": "^6.7.2",
     "eslint-plugin-react": "^7.17.0",
+    "gh-pages": "^2.1.1",
     "husky": "^3.1.0",
     "jsdom": "15.2.1",
     "jsdom-global": "3.0.2",

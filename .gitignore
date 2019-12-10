@@ -1,3 +1,8 @@
+# npm package .ignore
 node_modules/
 lib/
 es/
+
+# Github pages .ignore
+pages/dist/
+pages/node_modules/
