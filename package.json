@@ -1,6 +1,6 @@
 {
   "name": "toggle-democracy",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "React hook for converting a list of options to a democracy through toggle pairs.",
   "repository": "github:joakikr/toggle-democracy",
   "homepage": "https://joakikr.github.io/toggle-democracy/",
