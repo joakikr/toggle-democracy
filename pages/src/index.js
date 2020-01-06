@@ -13,6 +13,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import { dark } from './themes';
 
 const useStyles = makeStyles(theme => ({
@@ -58,8 +61,9 @@ const PurpleSwitch = withStyles({
 
 const App = () => {
     const classes = useStyles();
-    const [options] = useState(['Foo', 'Bar', 'Baz']);
+    const [options, setOptions] = useState(['Foo', 'Bar', 'Baz', ]);
     const [selected, setSelected] = useState(options[0]);
+    const [input, setInput] = useState("");
     const [state, api] = useToggleDemocracy(options)
 
     const handleSelectChange = (event) => {
@@ -74,75 +78,96 @@ const App = () => {
         api.updatePair(id, selected);
     };
 
-    return (
-        <MuiThemeProvider theme={dark}>
-            <Container maxWidth="md">
-                <CssBaseline />
-                <Grid container justify="center">
-                    <Typography className={classes.header} component="h1" variant="h2">Toggle Democracy Demo</Typography>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Paper className={classes.card}>
-                            <Grid className={classes.content} container direction="column" justify="space-between">
-                                <div>
-                                    <Typography className={classes.title} component="div" variant="h6">Why choose this...</Typography>
-                                    <FormControl className={classes.select}>
-                                        <InputLabel id="select-options">Options</InputLabel>
-                                        <Select
-                                            labelId="select-options"
-                                            value={selected}
-                                            onChange={handleSelectChange}
-                                        >
-                                            {options.map((option) => (
-                                                <MenuItem key={option} value={option}>{option}</MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                </div>
-                                <Typography>
-                                    Selected option: {selected}
-                                </Typography>
-                            </Grid>
-                        </Paper>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Paper className={classes.card}>
-                            <Grid className={classes.content} container direction="column" justify="space-between">
-                                <div>
+    const handleAddOption = (event) => {
+        event.preventDefault();
+        setOptions([...options, input])
+        setInput("");
+    }
 
-                                    <Typography className={classes.title} component="div" variant="h6">When you can toggle <i>ALL THE THINGS!</i></Typography>
-                                    <Grid container>
-                                        {Object.keys(state.pairs).map((id) => {
-                                            const pair = state.pairs[id];
-                                            return (
-                                                <Typography className={classes.toggle} key={id} component="div">
-                                                    <Grid component="label" container alignItems="center" spacing={1}>
-                                                        <Grid item>{pair.firstValue}</Grid>
-                                                        <Grid item>
-                                                            <PurpleSwitch
-                                                                checked={pair.secondValue === pair.selected}
-                                                                onChange={handleChange(id)}
-                                                                value={pair.selected}
-                                                            />
-                                                        </Grid>
-                                                        <Grid item>{pair.secondValue}</Grid>
-                                                    </Grid>
-                                                </Typography>
-                                            );
-                                        })}
-                                    </Grid>
-                                </div>
-                                <Typography>
-                                    Elected leader: {state.leader}
-                                </Typography>
-                            </Grid>
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </Container>
-        </MuiThemeProvider>
-    );
+    return (
+			<MuiThemeProvider theme={dark}>
+				<Container maxWidth="md">
+					<CssBaseline />
+					<Grid container justify="center">
+						<Typography className={classes.header} component="h1" variant="h2">
+							Toggle Democracy Demo
+						</Typography>
+					</Grid>
+					<Box mb={2}>
+						<form className={classes.container} onSubmit={handleAddOption}>
+							<Grid container justify="center" spacing={1}>
+								<Grid item>
+									<Input onChange={(e) => setInput(e.target.value)} value={input} placeholder="Add option">
+										test
+									</Input>
+								</Grid>
+								<Grid item>
+									<Button variant="contained" color="primary" type="submit">
+										Add
+									</Button>
+								</Grid>
+							</Grid>
+						</form>
+					</Box>
+					<Grid container spacing={2}>
+						<Grid item xs={12} md={6}>
+							<Paper className={classes.card}>
+								<Grid className={classes.content} container direction="column" justify="space-between">
+									<div>
+										<Typography className={classes.title} component="div" variant="h6">
+											Why choose this...
+										</Typography>
+										<FormControl className={classes.select}>
+											<InputLabel id="select-options">Options</InputLabel>
+											<Select labelId="select-options" value={selected} onChange={handleSelectChange}>
+												{options.map((option) => (
+													<MenuItem key={option} value={option}>
+														{option}
+													</MenuItem>
+												))}
+											</Select>
+										</FormControl>
+									</div>
+									<Typography>Selected option: {selected}</Typography>
+								</Grid>
+							</Paper>
+						</Grid>
+						<Grid item xs={12} md={6}>
+							<Paper className={classes.card}>
+								<Grid className={classes.content} container direction="column" justify="space-between">
+									<div>
+										<Typography className={classes.title} component="div" variant="h6">
+											When you can toggle <i>ALL THE THINGS!</i>
+										</Typography>
+										<Grid container>
+											{Object.keys(state.pairs).map((id) => {
+												const pair = state.pairs[id];
+												return (
+													<Typography className={classes.toggle} key={id} component="div">
+														<Grid component="label" container alignItems="center" spacing={1}>
+															<Grid item>{pair.firstValue}</Grid>
+															<Grid item>
+																<PurpleSwitch
+																	checked={pair.secondValue === pair.selected}
+																	onChange={handleChange(id)}
+																	value={pair.selected}
+																/>
+															</Grid>
+															<Grid item>{pair.secondValue}</Grid>
+														</Grid>
+													</Typography>
+												);
+											})}
+										</Grid>
+									</div>
+									<Typography>Elected leader: {state.leader}</Typography>
+								</Grid>
+							</Paper>
+						</Grid>
+					</Grid>
+				</Container>
+			</MuiThemeProvider>
+		);
 }
 
 ReactDOM.render((
