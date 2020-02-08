@@ -4,7 +4,7 @@
 
 The totally useless package that grants you a React hook for converting a list of options to a democracy through pairs of options. Give the hook an initial state of options and receive the combinations of pairs running up for leadership, alongside the currently chosen leader and an api function to update chosen status between pairs of options.
 
-```js
+```sh
 npm install toggle-democracy
 ```
 
@@ -26,5 +26,17 @@ const ExampleComponent = () => {
 | State | Description |
 |:---|:---|
 | `state.pairs`     | Object of objects, where each value is a pair object with props `id`, `firstValue`, `secondValue` and `selected`. |
-| `state.leader`    | The currently selected leader among all options. |
-| `api.updatePair`  | Function to update chosen status for a pair, called as `updatePair(id, selected)` |
+| `state.leader`    | The currently elected leader among all candidate options. |
+| `api.updatePair`  | Function to update chosen status for a pair, called as `updatePair(id, selected)`, where `id` should be the `id` of the pair. |
+
+## Deploy
+To update github pages site:
+```sh
+npm run deploy
+```
+
+### Publish
+To publish to npm:
+```sh
+npm publish
+```
